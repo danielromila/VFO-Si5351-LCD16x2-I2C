@@ -22,8 +22,6 @@ int fMHz;
 int fKHz;
 int fHz;
 
-int corr = 62100; // the correction factor for the given Si5351 board, obtained with the Jason utility
-
 // Instantiate the display and the signal generator board
 LiquidCrystal_I2C  lcd(0x27,2,1,0,4,5,6,7);    //I2C Address 0x27 (or 0x3F)
 Si5351 si5351(0x60); //I2C Address 0x60
@@ -43,8 +41,8 @@ void setup()
   lcd.setBacklightPin(3,POSITIVE);
   lcd.setBacklight(HIGH);
 
-  // Initialize the Si5351 signal generator module
-  si5351.init(SI5351_CRYSTAL_LOAD_8PF, 0, corr);         // corr is the calibration factor for this Si5351 module
+  // Initialize the Si5351 signal generator module 
+  si5351.init(SI5351_CRYSTAL_LOAD_8PF, 0, 122400);  // the correction factor for the given Si5351 board, obtained with the calibration utility from Etherkit_Si5351 library       
 
   si5351.output_enable(SI5351_CLK0, 1); // 1 - Enables / 0 - Disables CLK
   si5351.output_enable(SI5351_CLK1, 0);
@@ -82,8 +80,8 @@ void CheckEncoder()
   if (freq != oldfreq)
   {
     UpdateDisplay();
-      si5351.set_freq(((freq) * 100ULL), SI5351_CLK2);     // VFO
-      si5351.set_freq((IntermediateF * 100ULL), SI5351_CLK0);              // BFO
+      si5351.set_freq(((freq) * 100ULL), SI5351_CLK0);     // VFO
+      si5351.set_freq((IntermediateF * 100ULL), SI5351_CLK2);              // BFO
     oldfreq = freq;
   }
 }
