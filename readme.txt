@@ -10,6 +10,6 @@ Libraries:
 #include <si5351.h>            // Adafruit Si5351 library, version 1.2.0
 
 The Si5351 signal generator board has 3 clocks. I use only CLK0 and CLK2.
-- CLK 0 generates a variable frequency, between 4 KHz and 225 MHz (the board is version A, Si5351A)
+- CLK 0 generates a variable frequency, between 4 KHz and 225 MHz (the board is version A, Si5351A). Safer would be to limit between 8 KHz and 160 MHz, but it works in a   wider range.
 - CLK 2 generates a fixed frequency, which I called in the program IntermediateF, and has a fixed value of 10.7 MHz,
   which can be changed in the program.
